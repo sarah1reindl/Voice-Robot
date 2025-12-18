@@ -15,7 +15,7 @@ Pilotage PWM : Contrôle précis de la vitesse des moteurs DC.
 
 
 
-Architecture Matérielle
+-Architecture Matérielle
 Composants utilisés :
 Microcontrôleur : Raspberry Pi (3/4/5)
 
@@ -33,7 +33,7 @@ Alimentation : Batterie externe (Powerbank) pour la Pi + Support piles pour les 
 
 
 
-Installation & Configuration
+-Installation & Configuration
 1. Prérequis
 Assurez-vous d'avoir Python 3 installé sur votre Raspberry Pi et une connexion internet (pour la reconnaissance vocale Google).
 
@@ -52,13 +52,13 @@ python3 main.py
 
 
 
-Guide des Commandes VocalesLe robot supporte des instructions simples et composées grâce à des mots-clés de liaison (puis, ensuite, and, then).ActionExemples de commandesDéplacement"Avance", "Recule", "Gauche", "Droite"Durée"Avance 5 secondes"Vitesse"Plus vite", "Ralentir"Séquences"Avancer puis tourner à gauche"Arrêt"Stop", "Arrête", "Éteindre" (Quitte le programme)
+-Guide des Commandes VocalesLe robot supporte des instructions simples et composées grâce à des mots-clés de liaison (puis, ensuite, and, then).ActionExemples de commandesDéplacement"Avance", "Recule", "Gauche", "Droite"Durée"Avance 5 secondes"Vitesse"Plus vite", "Ralentir"Séquences"Avancer puis tourner à gauche"Arrêt"Stop", "Arrête", "Éteindre" (Quitte le programme)
 
 
 
 
 
-Structure du Code
+-Structure du Code
 Le projet est organisé de manière modulaire :
 
 class DistanceSensor : Gère les impulsions sonores et le calcul de distance en cm.
@@ -70,7 +70,7 @@ monitor_obstacles() : Fonction exécutée en arrière-plan (Threading) pour la s
 process_command() : Parseur de texte utilisant des expressions régulières (Regex) pour extraire les durées et les actions.
 
 
-À propos
+-À propos
 Ce projet a été réalisé dans un cadre académique pour démontrer l'intégration de l'IoT, de la robotique et de l'intelligence artificielle (traitement de la voix).
 
 Auteur : Sarah , Myriam , Rosa et Bilal
