@@ -31,7 +31,7 @@ class DistanceSensor:
         time.sleep(0.5)
 
     def get_distance(self):
-        # Envoi impulsion
+       
         GPIO.output(self.trig, True)
         time.sleep(0.00001)
         GPIO.output(self.trig, False)
@@ -88,7 +88,7 @@ class Robot:
         self.pwm_A.ChangeDutyCycle(0)
         self.pwm_B.ChangeDutyCycle(0)
         self.is_moving_forward = False
-        print("🛑 STOP")
+        print(" STOP")
 
     def move_forward(self):
         self.pwm_A.ChangeDutyCycle(self.current_speed)
@@ -98,7 +98,7 @@ class Robot:
         GPIO.output(self.IN3, GPIO.HIGH)
         GPIO.output(self.IN4, GPIO.LOW)
         self.is_moving_forward = True
-        print("⬆️ AVANCER")
+        print(" AVANCER")
 
     def move_backward(self):
         self.pwm_A.ChangeDutyCycle(self.current_speed)
@@ -108,7 +108,7 @@ class Robot:
         GPIO.output(self.IN3, GPIO.LOW)
         GPIO.output(self.IN4, GPIO.HIGH)
         self.is_moving_forward = False
-        print("⬇️ RECULER")
+        print(" RECULER")
 
     def move_left(self):
         self.pwm_A.ChangeDutyCycle(self.current_speed)
@@ -118,7 +118,7 @@ class Robot:
         GPIO.output(self.IN3, GPIO.HIGH)
         GPIO.output(self.IN4, GPIO.LOW)
         self.is_moving_forward = False
-        print("⬅️ GAUCHE")
+        print(" GAUCHE")
 
     def move_right(self):
         self.pwm_A.ChangeDutyCycle(self.current_speed)
@@ -128,11 +128,11 @@ class Robot:
         GPIO.output(self.IN3, GPIO.LOW)
         GPIO.output(self.IN4, GPIO.HIGH)
         self.is_moving_forward = False
-        print("➡️ DROITE")
+        print(" DROITE")
 
     def set_speed(self, speed):
         self.current_speed = max(0, min(100, speed))
-        print(f"⚡ Vitesse: {self.current_speed}%")
+        print(f" Vitesse: {self.current_speed}%")
 
     def cleanup(self):
         self.stop()
@@ -150,7 +150,7 @@ def execute_single_action(command, robot):
     command = command.lower()
 
     if any(w in command for w in ["off", "éteindre", "eteindre"]):
-        print("🔴 Programme terminé.")
+        print(" Programme terminé.")
         robot.stop()
         return "EXIT"
 
@@ -195,7 +195,7 @@ def process_command(full_command, robot):
     print(f"Instruction décomposée : {segments}")
 
     for i, segment in enumerate(segments):
-        print(f"👉 Étape {i+1}/{len(segments)} : '{segment.strip()}'")
+        print(f" Étape {i+1}/{len(segments)} : '{segment.strip()}'")
         
         duration = extract_duration(segment)
         
@@ -205,26 +205,26 @@ def process_command(full_command, robot):
             return False
             
         if result == "UNKNOWN":
-            print("❓ Etape ignorée (non comprise).")
+            print(" Etape ignorée (non comprise).")
             continue
         
         is_last_step = (i == len(segments) - 1)
         
         if duration:
-            print(f"   ⏳ Durée explicite : {duration} secondes...")
+            print(f"    Durée explicite : {duration} secondes...")
             time.sleep(duration)
             robot.stop()
         
 
         elif result == "TURN":
              default_turn_duration = 1.0
-             print(f"   🔄 Virage : Durée par défaut de {default_turn_duration}s...")
+             print(f"    Virage : Durée par défaut de {default_turn_duration}s...")
              time.sleep(default_turn_duration)
              robot.stop()
 
         elif not is_last_step and result == "MOVE":
             default_move_duration = 2.0
-            print(f"   ⏳ Mouvement intermédiaire : Durée par défaut de {default_move_duration}s...")
+            print(f"    Mouvement intermédiaire : Durée par défaut de {default_move_duration}s...")
             time.sleep(default_move_duration)
             robot.stop()
                 
@@ -233,13 +233,13 @@ def process_command(full_command, robot):
 
 def monitor_obstacles(robot, sensor, stop_event):
 
-    print("👀 Surveillance d'obstacles activée...")
+    print(" Surveillance d'obstacles activée...")
     while not stop_event.is_set():
         if robot.is_moving_forward:
             dist = sensor.get_distance()
             
             if dist < OBSTACLE_DISTANCE_THRESHOLD:
-                print(f"\n🛑 OBSTACLE DÉTECTÉ ({dist}cm) ! ARRÊT D'URGENCE.")
+                print(f"\n OBSTACLE DÉTECTÉ ({dist}cm) ! ARRÊT D'URGENCE.")
                 robot.stop()
                 
         time.sleep(0.1)
@@ -247,10 +247,10 @@ def monitor_obstacles(robot, sensor, stop_event):
 
 def recognize_speech(recognizer, mic):
     with mic as source:
-        print("🎤 En écoute...", end=' ', flush=True)
+        print(" En écoute...", end=' ', flush=True)
         try:
             audio = recognizer.listen(source, timeout=2, phrase_time_limit=2)
-            print("✓ Traitement...")
+            print(" Traitement...")
             return recognizer.recognize_google(audio, language='fr-FR')
         except sr.WaitTimeoutError:
             print(".")
