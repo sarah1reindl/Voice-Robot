@@ -51,7 +51,7 @@ class Robot:
         GPIO.output(self.IN4, GPIO.LOW)
         self.pwm_A.ChangeDutyCycle(0)
         self.pwm_B.ChangeDutyCycle(0)
-        print("🛑 Commande: ARRÊT" if LANGUAGE == 'fr-FR' else "🛑 Command: STOP")
+        print(" Commande: ARRÊT" if LANGUAGE == 'fr-FR' else " Command: STOP")
 
     def move_forward(self):
         self.pwm_A.ChangeDutyCycle(self.current_speed)
@@ -61,7 +61,7 @@ class Robot:
         GPIO.output(self.IN2, GPIO.LOW)
         GPIO.output(self.IN3, GPIO.HIGH)
         GPIO.output(self.IN4, GPIO.LOW)
-        print("⬆️ Commande: AVANCER" if LANGUAGE == 'fr-FR' else "⬆️ Command: Moving FORWARD")
+        print(" Commande: AVANCER" if LANGUAGE == 'fr-FR' else " Command: Moving FORWARD")
 
     def move_backward(self):
         self.pwm_A.ChangeDutyCycle(self.current_speed)
@@ -71,7 +71,7 @@ class Robot:
         GPIO.output(self.IN2, GPIO.HIGH)
         GPIO.output(self.IN3, GPIO.LOW)
         GPIO.output(self.IN4, GPIO.HIGH)
-        print("⬇️ Commande: RECULER" if LANGUAGE == 'fr-FR' else "⬇️ Command: Moving BACKWARD")
+        print(" Commande: RECULER" if LANGUAGE == 'fr-FR' else " Command: Moving BACKWARD")
 
     def move_left(self):
         self.pwm_A.ChangeDutyCycle(self.current_speed)
@@ -81,7 +81,7 @@ class Robot:
         GPIO.output(self.IN2, GPIO.HIGH)
         GPIO.output(self.IN3, GPIO.HIGH)
         GPIO.output(self.IN4, GPIO.LOW)
-        print("⬅️ Commande: TOURNER À GAUCHE" if LANGUAGE == 'fr-FR' else "⬅️ Command: Turning LEFT")
+        print(" Commande: TOURNER À GAUCHE" if LANGUAGE == 'fr-FR' else " Command: Turning LEFT")
 
     def move_right(self):
         self.pwm_A.ChangeDutyCycle(self.current_speed)
@@ -91,12 +91,12 @@ class Robot:
         GPIO.output(self.IN2, GPIO.LOW)
         GPIO.output(self.IN3, GPIO.LOW)
         GPIO.output(self.IN4, GPIO.HIGH)
-        print("➡️ Commande: TOURNER À DROITE" if LANGUAGE == 'fr-FR' else "➡️ Command: Turning RIGHT")
+        print(" Commande: TOURNER À DROITE" if LANGUAGE == 'fr-FR' else " Command: Turning RIGHT")
 
     def set_speed(self, speed):
         self.current_speed = max(0, min(100, speed))
-        print(f"⚡ Vitesse réglée à: {self.current_speed}%" if LANGUAGE == 'fr-FR' 
-              else f"⚡ Speed set to: {self.current_speed}%")
+        print(f" Vitesse réglée à: {self.current_speed}%" if LANGUAGE == 'fr-FR' 
+              else f" Speed set to: {self.current_speed}%")
 
     def cleanup(self):
         self.stop()
@@ -109,7 +109,7 @@ def process_command(command, robot):
     command = command.lower()
 
     if any(word in command for word in ["off", "éteindre", "eteindre"]):
-        print("🔴 ARRÊT TOTAL DU PROGRAMME!" if LANGUAGE == 'fr-FR' else "🔴 SHUTTING DOWN PROGRAM!")
+        print(" ARRÊT TOTAL DU PROGRAMME!" if LANGUAGE == 'fr-FR' else " SHUTTING DOWN PROGRAM!")
         robot.stop()
         return False
 
@@ -136,11 +136,11 @@ def process_command(command, robot):
 
     else:
         if LANGUAGE == 'fr-FR':
-            print("❌ Commande non reconnue. Dites: avancer, reculer, gauche, droite, arrêt, plus vite, moins vite, ÉTEINDRE")
+            print(" Commande non reconnue. Dites: avancer, reculer, gauche, droite, arrêt, plus vite, moins vite, ÉTEINDRE")
         elif LANGUAGE == 'en-US':
-            print("❌ Command not recognized. Say: forward, back, left, right, stop, faster, slower, OFF")
+            print(" Command not recognized. Say: forward, back, left, right, stop, faster, slower, OFF")
         else:
-            print("❌ Commande non reconnue / Command not recognized")
+            print(" Commande non reconnue / Command not recognized")
             print("FR: avancer, reculer, gauche, droite, arrêt, plus vite, moins vite, ÉTEINDRE")
             print("EN: forward, back, left, right, stop, faster, slower, OFF")
 
@@ -151,24 +151,24 @@ def recognize_speech(recognizer, audio):
     if LANGUAGE == 'both':
         try:
             command = recognizer.recognize_google(audio, language='fr-FR')
-            print(f"💬 Vous avez dit (FR): '{command}'")
+            print(f" Vous avez dit (FR): '{command}'")
             return command
         except (sr.UnknownValueError, sr.RequestError):
             try:
                 command = recognizer.recognize_google(audio, language='en-US')
-                print(f"💬 You said (EN): '{command}'")
+                print(f" You said (EN): '{command}'")
                 return command
             except:
                 raise sr.UnknownValueError()
 
     elif LANGUAGE == 'fr-FR':
         command = recognizer.recognize_google(audio, language='fr-FR')
-        print(f"💬 Vous avez dit: '{command}'")
+        print(f" Vous avez dit: '{command}'")
         return command
 
     else:
         command = recognizer.recognize_google(audio, language='en-US')
-        print(f"💬 You said: '{command}'")
+        print(f" You said: '{command}'")
         return command
 
 
@@ -184,18 +184,18 @@ def main():
     if LANGUAGE == 'fr-FR':
         print("\n--- Contrôle Vocal Démarré ---")
         print("Commandes: avancer, reculer, gauche, droite, arrêt, plus vite, moins vite")
-        print("🔴 Dites 'ÉTEINDRE' pour quitter le programme")
+        print(" Dites 'ÉTEINDRE' pour quitter le programme")
         print("Appuyez sur Ctrl+C pour quitter.\n")
     elif LANGUAGE == 'en-US':
         print("\n--- Voice Control Started ---")
         print("Commands: forward, back, left, right, stop, faster, slower")
-        print("🔴 Say 'OFF' to exit the program")
+        print(" Say 'OFF' to exit the program")
         print("Press Ctrl+C to exit.\n")
     else:
         print("\n--- Contrôle Vocal Démarré / Voice Control Started ---")
         print("Commandes FR: avancer, reculer, gauche, droite, arrêt, plus vite, moins vite")
         print("Commands EN: forward, back, left, right, stop, faster, slower")
-        print("🔴 Dites 'ÉTEINDRE' ou 'OFF' pour quitter / Say 'OFF' or 'ÉTEINDRE' to exit")
+        print(" Dites 'ÉTEINDRE' ou 'OFF' pour quitter / Say 'OFF' or 'ÉTEINDRE' to exit")
         print("Appuyez sur Ctrl+C pour quitter / Press Ctrl+C to exit.\n")
 
     robot = None
@@ -233,19 +233,19 @@ def main():
                     break
 
             except sr.UnknownValueError:
-                msg = "❓ Non compris" if LANGUAGE == 'fr-FR' else "❓ Not understood"
+                msg = " Non compris" if LANGUAGE == 'fr-FR' else " Not understood"
                 print(msg)
             except sr.RequestError as e:
-                msg = f"❌ ERREUR: {e}" if LANGUAGE == 'fr-FR' else f"❌ ERROR: {e}"
+                msg = f" ERREUR: {e}" if LANGUAGE == 'fr-FR' else f" ERROR: {e}"
                 print(msg)
 
             time.sleep(0.05)
 
     except KeyboardInterrupt:
-        msg = "\n\n⚠️ Contrôle vocal arrêté (Ctrl+C)." if LANGUAGE == 'fr-FR' else "\n\n⚠️ Voice control stopped (Ctrl+C)."
+        msg = "\n\n Contrôle vocal arrêté (Ctrl+C)." if LANGUAGE == 'fr-FR' else "\n\n Voice control stopped (Ctrl+C)."
         print(msg)
     except Exception as e:
-        msg = f"\n❌ Erreur inattendue: {e}" if LANGUAGE == 'fr-FR' else f"\n❌ Unexpected error: {e}"
+        msg = f"\n Erreur inattendue: {e}" if LANGUAGE == 'fr-FR' else f"\n Unexpected error: {e}"
         print(msg)
         import traceback
         traceback.print_exc()
