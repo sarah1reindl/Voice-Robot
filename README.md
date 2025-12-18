@@ -12,6 +12,9 @@ Gestion Multithread : Le capteur de distance tourne sur un thread séparé pour 
 Pilotage PWM : Contrôle précis de la vitesse des moteurs DC.
 
 
+
+
+
 Architecture Matérielle
 Composants utilisés :
 Microcontrôleur : Raspberry Pi (3/4/5)
@@ -25,6 +28,9 @@ Capteur de distance : HC-SR04 (Ultrason)
 Audio : Microphone USB ou carte son externe
 
 Alimentation : Batterie externe (Powerbank) pour la Pi + Support piles pour les moteurs
+
+
+
 
 
 Installation & Configuration
@@ -43,7 +49,13 @@ Bash
 python3 main.py
 
 
+
+
+
 Guide des Commandes VocalesLe robot supporte des instructions simples et composées grâce à des mots-clés de liaison (puis, ensuite, and, then).ActionExemples de commandesDéplacement"Avance", "Recule", "Gauche", "Droite"Durée"Avance 5 secondes"Vitesse"Plus vite", "Ralentir"Séquences"Avancer puis tourner à gauche"Arrêt"Stop", "Arrête", "Éteindre" (Quitte le programme)
+
+
+
 
 
 Structure du Code
